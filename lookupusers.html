@@ -1,0 +1,28 @@
+﻿<html>
+<head>
+<script charset="utf-8" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+</html>
+<body>
+<table>
+<tr><td>
+<textarea id="in" cols="50" rows="30">yusukey
+yusuke</textarea></td><td><input type="button" onclick="fire()" value="lookup"/></td><td>
+<textarea id="out" cols="50" rows="30"></textarea>
+</td>
+</table>
+<script>
+function fire(){
+var users = $("#in").val().split("\n").join(",");
+$.getJSON("https://api.twitter.com/1/users/lookup.json?screen_name="+users+"&callback=?",
+  function(data){
+    var out = "";
+    $.each(data, function(i,user){
+      out+= "@"+user.screen_name + "," + user.followers_count+"\n";
+    });
+    $("#out").val(out);
+  });  
+}
+</script>
+</body>
+</html>
